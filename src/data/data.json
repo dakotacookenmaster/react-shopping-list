@@ -1,0 +1,27 @@
+[
+    {
+        "id": 0,
+        "name": "Peanut Butter",
+        "description": "Need to get TODAY!"
+    },
+    {
+        "id": 1,
+        "name": "Bread",
+        "description": "Get ASAP"
+    },
+    {
+        "id": 2,
+        "name": "Jelly",
+        "description": "Make sure to get the raspberry one"
+    },
+    {
+        "id": 3,
+        "name": "Butter",
+        "description": "Get Vegan one"
+    },
+    {
+        "id": 4,
+        "name": "Paper Plates",
+        "description": ""
+    }
+]
