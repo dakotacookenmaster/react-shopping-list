@@ -1,13 +1,35 @@
-import React, {useContext} from "react"
-import {Context} from "../context"
+import React, {useContext, useState} from "react"
 import {useHover} from "../hooks/useHover"
+import {Context} from "../context"
+import {useHistory} from "react-router-dom"
 
 const ListItem = (props) => {
+    const [isDeleted, setIsDeleted] = useState(false)
     const {removeItem} = useContext(Context)
     const {hovered, ref} = useHover()
+    const history = useHistory()
     const {item} = props
+
+    const remove = () => {
+        setIsDeleted(true)
+        setTimeout(() => {
+            removeItem(item.id)
+        }, 500)
+    }
+
+    const deleteStyle = {
+        color: "maroon",
+        cursor: "pointer",
+        float: "right"
+    }
+
+    const editStyle = {
+        cursor: "pointer",
+        float: "right"
+    }
+
     return (
-        <div className="card" 
+        <div className={isDeleted ? "card leaveScreen" : "card"}
             style={{
                 width: 400,
                 marginLeft: 20,
@@ -20,14 +42,15 @@ const ListItem = (props) => {
                 <h5>
                     {item.name}
                     <i 
-                    style={{
-                        color: "maroon",
-                        cursor: "pointer",
-                        float: "right"
-                    }} 
-                    class="ri-delete-bin-3-fill"
-                    onClick={() => {removeItem(item.id)}}
+                    style={deleteStyle} 
+                    className="ri-delete-bin-3-fill"
+                    onClick={remove}
                     ></i>
+                    <i 
+                        className="ri-edit-2-fill"
+                        style={editStyle}
+                        onClick={() => history.push(`/update/${item.id}`)}
+                    ></i> 
                 </h5>
                 <p>{item.description}
                 </p>

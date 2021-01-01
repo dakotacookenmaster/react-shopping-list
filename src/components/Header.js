@@ -8,7 +8,7 @@ const Header = (props) => {
     // }]
     const links = props.links.map(link => {
         return (
-            <li><Link to={link.path}>{link.name}</Link></li>
+            <li key={link.name}><Link to={link.path}>{link.name}</Link></li>
         )
     })
 
