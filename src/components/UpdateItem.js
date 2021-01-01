@@ -1,7 +1,7 @@
-import React, {useState, useContext} from "react"
+import React, {useState, useContext, useEffect} from "react"
 import Header from "./Header"
 import {Context} from "../context"
-import {useHistory} from "react-router-dom"
+import {useHistory, useParams} from "react-router-dom"
 
 const LINKS = [
     {
@@ -14,18 +14,26 @@ const LINKS = [
     }
 ]
 
-const AddItem = (props) => {
+const UpdateItem = (props) => {
     const history = useHistory()
-    const {addItem, getNextId} = useContext(Context)
-    const [item, setItem] = useState({
-        name: "",
-        description: "",
-        id: getNextId(),
-    })
+    const {items, updateItem}= useContext(Context)
+    const params = useParams()
+    const id = parseInt(params.id)
+    const [item, setItem] = useState({name: "", description: "", id: ""})
 
-    const add = (event) => {
+    useEffect(() => {
+        console.log(id)
+        console.log(items)
+        let oldItem = items.find(i => i.id === id)
+        console.log(oldItem)
+        if(oldItem) {
+            setItem(oldItem)
+        }
+    }, [items, id])
+
+    const update = (event) => {
         event.preventDefault()
-        addItem(item)
+        updateItem(item)
         history.push("/") // Sends us back to the homepage after submit!
     }
 
@@ -41,9 +49,9 @@ const AddItem = (props) => {
     
     return (
         <>
-            <Header title="Add Item" links={LINKS}/>
+            <Header title="Update Item" links={LINKS}/>
             <div className="mb-3">
-                <form onSubmit={add}>
+                <form onSubmit={update}>
                     <label className="form-label">
                         Name:
                         <br />
@@ -67,12 +75,11 @@ const AddItem = (props) => {
                         />
                     </label>
                     <br />
-                    <button className="btn btn-primary">Add Item!</button>
+                    <button className="btn btn-primary">Update Item!</button>
                 </form>
             </div>
-            
         </>
     )
 }
 
-export default AddItem
+export default UpdateItem

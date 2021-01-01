@@ -8,13 +8,13 @@ import {BrowserRouter as Router} from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-    <Router>
-      <ContextProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </ContextProvider>
-    </Router>,
+  <ContextProvider>
+    <React.StrictMode>
+      <Router>
+        <App />
+      </Router>
+    </React.StrictMode>
+  </ContextProvider>,
   document.getElementById('root')
 );
 
